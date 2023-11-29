@@ -1,0 +1,19 @@
+A continuación detallamos brevemente la lógica implementada en la aplicación solicitada donde el usuario puede realizar las operaciones de agregado de una persona (ingresando sus respectivos nombre o nombres, apellido simple o compuesto con un máximo de 30 caracteres, su número de DNI con un máximo de 8 caracteres numéricos y la fecha de nacimiento según el formato de dd/mm/aaaa); poder ver un listado de todas las personas registradas; y salir de la aplicación.
+
+- Definimos una clase Persona que tiene campos para el nombre, apellido, DNI y fecha de nacimiento y proporcionamos un constructor para inicializar estos campos.
+- En la clase principal "aplicacion1b" definimos una lista personas para almacenar instancias de la clase "Persona". También utilizamos un objeto Scanner para la entrada de datos.
+- Con el método main nuestra aplicación comienza con un mensaje de bienvenida. Utilizamos un bucle while (true) para mostrar continuamente el menú hasta que el usuario elija salir. Y se llama al método "mostrarMenu" para imprimir las opciones disponibles.
+- Implementamos el método "mostrarMenu" que imprime el menú de opciones.
+- Utilizamos Switch-Case para las opciones del menú, ya que un bloque switch nos permite manejar las diferentes opciones del menú seleccionadas por el usuario. La opción 1 que agrega una persona al registro llama al método agregarPersona. La opción 2 que muestra el listado de las personas registradas llama al método listarPersonas. Y la opción 3 de salida de la aplicación imprime un mensaje de despedida y termina la aplicación.
+- Con el método "agregarPersona" solicitamos al usuario que ingrese el nombre, apellido, DNI y fecha de nacimiento. Introducimos métodos de validación (validarNombreApellido, validarDNI, validarFechaNacimiento) para asegurarnos de que los datos ingresados sean válidos según ciertas reglas establecidas. Mientras el usuario ingrese datos inválidos, se le pedirá que vuelva a ingresar los datos. Luego creamos una nueva instancia de Persona con los datos validados para agregarlos a la lista de personas.
+- Con el método "listarPersonas" logramos imprimir el listado de todas las personas registradas. En el caso de que no haya personas registradas se imprime un mensaje indicando esa opción.
+- Con los métodos de validación (validarNombreApellido, validarDNI, validarFechaNacimiento):
+
+Por lo anteriormente expresado, podemos resumir la lógica en los siguientes pasos:
+1. Se hace uso de un bucle principal para mostrar el menú y procesar las opciones seleccionadas por el usuario.
+2. Se implementan métodos de validación para garantizar que los datos ingresados cumplan con ciertos requisitos. 
+3. Se utiliza una lista para almacenar y gestionar la información de las personas registradas.
+
+Breve conclusión:
+No tuvimos mayores dificultades en el desarrollo de la interfaz de usuario. Posiblemente nos llevó un poco más de tiempo el uso de las validaciones, ya que el uso del Scanner directamente puede llevar a problemas cuando se introducen tipos de datos incorrectos. 
+

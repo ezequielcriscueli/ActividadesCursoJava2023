@@ -1,0 +1,18 @@
+La aplicación solicitada utiliza un sistema de menús y bucles para interactuar con el usuario. Se implementó un manejo básico de excepciones convirtiendo cadenas a números. Su lógica permite realizar diversas operaciones tanto en la biblioteca, como agregar, buscar y manipular libros; así como también se puede gestionar a los usuarios.
+
+En este código Java implementamos las Clases Principales "Biblioteca", que contiene los métodos y la lógica para gestionar tanto usuarios como libros; "Libro", que representa a cada libro con sus atributos como título, autor, género y disponibilidad; y "Usuario", que representa a cada usuario de la biblioteca con sus atributos nombre, DNI y métodos relacionados con el alquiler y la devolución de libros.
+Con respecto a los métodos podemos mencionar los siguientes:
+- "main": crea una instancia de "Biblioteca" y llama a "menuPrincipal()".
+- "menuPrincipal": muestra un menú principal con opciones para agregar un nuevo usuario, ingresar como usuario existente o salir del programa. Aquí utilizamos un bucle "do-while" para mantener al usuario en el menú hasta que decida salir. Según la opción seleccionada se llama a diferentes métodos.
+-"registrarUsuarioNuevo": con este método se Solicita al usuario ingresar nombre y DNI. A su vez utiliza los métodos "validarNombre" y "validarDni" para asegurarse de que los datos ingresados sean válidos. También crea un nuevo usuario y lo agrega a la lista de usuarios.
+-"validarNombre": Verifica que el nombre no esté en blanco y contenga solo letras.
+-"validarDni": Verifica que el DNI tenga 8 dígitos numéricos.
+-"validarUserExistente": Permite a un usuario existente ingresar al sistema ingresando su DNI.
+-"buscarUsuarioPorDni": Busca un usuario según su número de DNI en la lista de usuarios.
+-"menuUsuario": con este método se muestra un menú para un usuario autenticado con las opciones de agregar libro, eliminar libro, alquilar libro, devolver libro, buscar libro, mostrar libros, volver al menú principal y salir. Nuevamente se utiliza un bucle "do-while" para mantener al usuario en el menú hasta que decida volver al menú principal.
+-"agregarLibro": este método solicita al usuario ingresar información sobre un nuevo libro y lo agrega a la lista de libros si la información es válida.
+-"campoRellenado": Verifica que un campo no esté en blanco.
+-"libroRepetido": Verifica si un libro ya está en la lista de libros.
+-"eliminarLibro", "listarLibros", "alquilarLibro", "devolverLibro": son los métodos que implementan las operaciones respectivas acerca de los libros.
+-"menuBuscarLibro": con este método se logra mostrar un menú para buscar libros por título, autor o género.
+-"busquedaPorTitulo", "busquedaPorAutor", "busquedaPorGenero": estos métodos realizan búsquedas de libros por título, autor o género, según las preferencias del usuario.
