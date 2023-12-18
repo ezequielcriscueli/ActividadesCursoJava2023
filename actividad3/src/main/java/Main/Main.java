@@ -12,7 +12,7 @@ public class Main {
 
     private final String contrasena = "4Gu5t1nc1t0";
 
-    private final String db = "neoris_cohorte1";
+    private final String db = "cohorte1";
 
     private final String ip = "127.0.0.1";
 
