@@ -10,7 +10,7 @@ public class Main {
 
     private final String usuario = "root";
 
-    private final String contrasena = "4Gu$t1nc1t0";
+    private final String contrasena = "4Gu5t1nc1t0";
 
     private final String db = "neoris_cohorte1";
 
@@ -24,7 +24,7 @@ public class Main {
         try {
 
             conectar = DriverManager.getConnection(cadena, usuario, contrasena);
-//            JOptionPane.showMessageDialog(null, "Se generó la conexión");
+            JOptionPane.showMessageDialog(null, "Se generó la conexión");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se generó la conexión" + e);
