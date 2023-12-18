@@ -26,10 +26,72 @@ El código fuente de la aplicación Java.
 Un documento de texto o Read.me donde expliquen la lógica utilizada para validar los datos y cómo se implementan las diferentes funcionalidades.
 Un informe detallado de cualquier problema que hayan enfrentado durante el desarrollo de la aplicación y cómo los resolvieron.
 
-Lógica de la actividad
+Estructura y lógica de la actividad:
 
-- Se define y crea la Clase del Registro, es decir que la clase representa la entidad del registro.
-- Se crea una clase que actúe como repositorio para gestionar el almacenamiento y recuperación de registros, la cual puede utilizar una lista para almacenar objetos.
-- Se implementan las operaciones CRUD: para la creación un Registro (Create) se implementa un método para agregar un nuevo registro al repositorio. Para listar tales registros (Read) se
-implementa un método para recuperar y mostrar todos los registros existentes.Para actualizar el registro (Update) utilizamos la implementación de un método para actualizar un registro existente, permitiendo la modificación de los atributos del registro. Y por último se deben poder eliminar los registros (Delete) mediante la implementación de un método para eliminar un registro existente del repositorio.
-- Para la persistencia de datos, se configura una conexión a una base de datos MySQL.
+El archivo 'pom.xml' en nuestro proyecto Maven es esencial para la configuración y gestión del proyecto. Maven es una herramienta de gestión de proyectos que ayuda en la construcción, el informe y la documentación de un proyecto. Este archivo proporciona a Maven la información necesaria para construir, empaquetar y gestionar las dependencias del proyecto. Sus principales funciones son:
+
+- Gestiona las Dependencias especificando las dependencias del proyecto, incluyendo bibliotecas externas que el proyecto utiliza. Maven descarga automáticamente estas dependencias y las incluye en el proceso de compilación.
+- Configura la construcción del proyecto, Maven utiliza el 'pom.xml' para saber cómo construir el proyecto. Esto incluye la configuración del compilador, el empaquetado del proyecto (JAR, WAR), y otros detalles relacionados con el proceso de construcción.
+- Gestiona los Plugins para realizar diversas tareas durante el ciclo de vida del proyecto, como compilar código fuente, ejecutar pruebas, generar informes, etc.
+- Contiene información descriptiva sobre el proyecto, como el nombre, la versión, la descripción y el grupo al que pertenece.
+
+Este archivo de configuración de Maven describe las características y dependencias de nuestro proyecto Java "actividad3". Está configurado para empaquetar el proyecto como un archivo JAR y tiene una dependencia en el conector JDBC de MySQL versión 8.2.0. Además, se especifican propiedades relacionadas con la codificación, la versión de Java y la clase principal a ejecutar.
+
+En el archivo 'Main.java' se importaron las clases necesarias de las bibliotecas de Java para trabajar con JDBC y mostrar mensajes de diálogo mediante JOptionPane. Declaramos la clase principal 'Main' y las siguientes variables miembro: 
+- 'conectar': es el objeto 'Connection' representa la conexión a la base de datos.
+- 'user': es el nombre de usuario de la base de datos.
+- 'password': es la contraseña de la base de datos.
+- 'db': es el nombre de nuestra base de datos en MySQL Workbench.
+- 'ip': indica la dirección IP del servidor de la base de datos ("localhost").
+- 'port': es el puerto local en el que se ejecuta el servidor de la base de datos ("3306").
+- 'cadena': indica la URL de conexión JDBC formada por la concatenación de la dirección IP, el puerto y el nombre de la base de datos.
+Luego declaramos el método 'establecerConexión' para conectarnos a la base de datos utilizando la información proporcionada. Si la conexión se establece con éxito, se muestra un mensaje de diálogo indicando el éxito. En caso de que ocurra una excepción SQLException durante el intento de conexión, se muestra un mensaje de diálogo indicando que la conexión no pudo ser establecida, junto con detalles sobre la excepción. Este método retorna el objeto 'Connection' establecido.
+Por último, se crea una instancia de la clase 'Main' llamando al método 'establecerConexion()' en esta instancia para intentar establecer la conexión a la base de datos.
+
+Dentro de la carpeta 'Interfaces'tenemos los archivos 'DAOMateria.java' y 'DAOMateriaImplementacion.java'. Con el primero definimos una interfaz llamada DAOMateria en el paquete Interfaces. La interfaz tiene cinco métodos, cada uno de los cuales realiza operaciones relacionadas con la gestión de objetos de tipo Materia. La interfaz define la firma de estos métodos, pero no proporciona la implementación detallada de cada uno de ellos. La implementación real de estos métodos se dejará a las clases que implementen esta interfaz.
+Los métodos de la interfaz son:
+- 'agregar': método que toma un objeto de tipo Materia como parámetro y devuelve un valor booleano. Su objetivo es agregar una materia al sistema. La implementación concreta de cómo se agrega la materia al sistema se dejará a las clases que implementen esta interfaz.
+- 'modificar': Similar al método anterior, toma un objeto 'Materia' como parámetro y devuelve un valor booleano. Este método tiene la responsabilidad de modificar la información de una materia existente en el sistema.
+-'eliminar': con este método también se toma un objeto 'Materia' y devuelve un valor booleano. Su función es eliminar una materia del sistema.
+-'buscar': este método toma un objeto Materia como parámetro, pero no devuelve ningún valor (void). Se utiliza para buscar información sobre una materia en el sistema. La implementación concreta de cómo se realiza la búsqueda se deja a las clases que implementen la interfaz.
+Esta interfaz define una serie de operaciones CRUD (Crear, Leer, Actualizar, Eliminar) relacionadas con el manejo de objetos de tipo Materia. Cualquier clase que implemente esta interfaz proporciona la implementación detallada de estos métodos para el almacenamiento en la base de datos.
+Siguiendo con el código del archivo 'DAOMateriaImplementacion.java', implementamos una clase llamada 'DAOMateriaImplementacion' que implementa la interfaz 'DAOMateria'. Esta interfaz define los métodos para realizar operaciones básicas en la base de datos relacionada con entidades de tipo 'Materia'. Tiene un un constructor vacío que no realiza ninguna acción específica y los siguientes métodos:
+- 'agregar': que toma el objeto 'Materia' como parámetro y lo inserta en la base de datos utilizando SQL. Utiliza la 'fecha de inscripción' y el nombre de la materia de la instancia de 'Materia' para realizar la inserción.
+- 'modificar': Similar al método agregar, modifica una materia existente en la base de datos utilizando el ID de la materia y su nuevo nombre para realizar la actualización.
+-'eliminar': elimina una materia de la base de datos utilizando su ID.
+-'buscar': busca una materia en la base de datos utilizando su ID y actualiza la instancia de Materia con los datos encontrados.
+
+En cada uno de estos métodos se establece una conexión a la base de datos utilizando una instancia de la clase 'Main' mencionada anteriormente; se prepara una sentencia SQL mediante un PreparedStatement; se ejecuta la sentencia SQL; se manejan las excepciones de SQL, como problemas de conexión o errores en las consultas; y se muestra un mensaje de éxito o fracaso mediante JOptionPane según el resultado de la operación. Además destacamos que el código presenta manejo de excepciones y mensajes de usuario para informar sobre el éxito o fallo de las operaciones en la base de datos. Consideramos útil cerrar las conexiones y los recursos utilizados ('PreparedStatement', 'ResultSet') en bloques 'finally' o mediante el uso de try-with-resources para garantizar la liberación adecuada de recursos, incluso en caso de excepciones.
+
+Siguiendo con la estructura de nuestro proyecto nos queda mencionar la carpeta del paquete 'Materia', compuesta por los archivos 'Materia.java', 'Design.java' y 'Design.form'. 
+
+En el código de 'Materia.java' definimos una clase llamada 'Materia' que representa información sobre una materia, como su identificación (id), fecha de inscripción y nombre de la materia. Su lógica es la siguiente:
+- Definimos la clase Materia en el paquete Materia.
+- Importamos la clase LocalDate del paquete java.time para trabajar con fechas.
+- La clase tiene tres atributos privados: id (entero), fechaInscripcion (tipo LocalDate) y materia (cadena de texto).
+- Proporcionamos un constructor por defecto vacío.
+- Con los métodos de acceso ('getters' y 'setters') se acceden y modifican los valores de cada atributo.Los métodos 'get' permiten obtener el valor actual de cada atributo y los métodos 'set' permiten establecer un nuevo valor para cada atributo.
+Por lo tanto, la clase 'Materia' proporciona la estructura básica para representar información sobre una materia, con métodos para acceder y modificar sus atributos. El uso de LocalDate para la fecha de inscripción nos permite trabajar con fechas en Java.
+
+Continuando con el archivo 'Design.java', su código es una aplicación Java Swing. La interfaz gráfica (GUI) se ha diseñado con la ayuda de la herramienta de diseño de formularios de NetBeans. Su lógica se resume en:
+
+- Interfaz Gráfica (GUI): se utiliza el paquete 'Materia', la clase principal se llama 'Design' y extiende de javax.swing.JFrame, lo que indica que es una ventana de interfaz gráfica. La interfaz contiene varios paneles (panel_cabecera, panel_campos, panel_botones, y panel_lista) que organizan y agrupan los elementos visuales.
+- Campos de Entrada: los campos de entrada son dos (txt_id y txt_materia) para ingresar el código y la descripción de la materia respectivamente. Se proporcionan etiquetas (lbl_ID y lbl_tarea) para indicar la información que se espera en esos campos.
+- Botones: ejecutan acciones específicas al ser presionados, están asociados a métodos como 'btn_agregarMateriaActionPerformed', 'btn_buscarMateriaActionPerformed', 'btn_modificarMateriaSeleccionadaActionPerformed', y 'btn_eliminarMateriaSeleccionadaActionPerformed'.
+- Métodos: que realizan operaciones para agregar de una materia con la descripción proporcionada y la fecha actual; mostrar las materias desde la base de datos en la tabla; modificar la materia seleccionada utilizando el ID proporcionado; buscar una materia por el ID mostrando sus detalles en los campos de texto; eliminar la materia seleccionada utilizando el ID proporcionado; verificar si una cadena es un número entero ('esNumeroEntero(String txt)'); y limpiar los campos de texto.
+- Las operaciones de agregar, modificar, buscar y eliminar están conectadas a la base de datos a través de la clase 'DAOMateriaImplementacion'. Las operaciones realizadas son operaciones básicas de CRUD (Crear, Leer, Actualizar, Eliminar) en la base de datos.
+- Iniciación de la Aplicación: En el método 'main', se crea una instancia de la clase 'Design' y se muestra la interfaz gráfica.
+
+En este código se hace uso de una arquitectura DAO (Data Access Object) para interactuar con la base de datos implementada desde el archivo 'DAOMateriaImplementacion.java'.
+
+El archivo 'Design.form' describeel formulario de interfaz de usuario (UI) al utilizar NetBeans IDE destinado para nuestra aplicación de escritorio (Swing) que permite realizar las operaciones mencionadas anteriormente. Su estructura y lógica la podemos resumir de la siguiente manera:
+
+- El formulario principal está definido con la etiqueta '<Form>' y tiene propiedades y configuraciones definidas, como la versión, tipo de formulario y operación predeterminada al cerrar.
+- En el Diseño del Formulario la sección '<Layout>' define la disposición de los componentes en el formulario en términos de dimensiones (x, y). Se utilizan grupos ('<Group>') para organizar los componentes en diferentes secciones del formulario, como el panel de cabecera, panel de lista, etc. Se utilizan '<EmptySpace>' para agregar espacios en blanco entre los componentes y grupos.
+- El formulario contiene varios paneles ('<Container class="javax.swing.JPanel">'), como panel_cabecera, panel_lista, etc. Cada panel tiene su propio diseño ('<Layout>') que organiza los componentes dentro de ese panel. Los componentes son etiquetados con 'id' y son de tipos como 'javax.swing.JLabel', 'javax.swing.JTextField', 'javax.swing.JButton', etc. Se definen propiedades para los componentes, como color de fondo, fuente, texto, etc.
+- Se definen algunos eventos ('<Events>') para los botones ('javax.swing.JButton') que especifican qué método debe ejecutarse cuando ocurre un evento, como hacer clic en un botón.
+- Se utiliza una tabla ('javax.swing.JTable') llamada 'tabla_datos' para mostrar datos tabulares. Se especifica el modelo de la tabla, las columnas y algunas propiedades adicionales como la capacidad de edición y el encabezado de la tabla.
+- Se utiliza el componente de desplazamiento 'ScrollPane' ('javax.swing.JScrollPane') para permitir desplazamiento cuando hay demasiados datos para mostrar en una sola pantalla.
+
+Este código describe la estructura y disposición de un formulario de interfaz de usuario para nuestra aplicación. Cada componente y panel tiene propiedades específicas y se organizan utilizando grupos y espacios en blanco para lograr el diseño deseado. Además, se definen eventos para algunos botones y se utiliza una tabla para mostrar datos tabulares.
+
